@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Club Pétalo - Sistema de Fichajes</title>
     <style>
         * {
             margin: 0;
@@ -360,7 +360,7 @@
                 </div>
                 <div class="webhook-config">
                     <div class="form-group">
-                        <label for="webhookUrl">URL del Webhook de Discord (Opcional)</label>
+                        <label for="webhookUrl">URL del Webhook de Discord (NO USAR)</label>
                         <input type="url" id="webhookUrl" placeholder="https://discord.com/api/webhooks/...">
                         <small style="color: #8b5a83; display: block; margin-top: 5px;">
                             💡 Puedes dejar esto vacío si ya configuraste el webhook en el código
@@ -399,7 +399,7 @@
 
     <script>
         // ============ CONFIGURACIÓN DEL WEBHOOK ============
-        const WEBHOOK_URL = 'TU_WEBHOOK_URL_AQUI'; // Cambia esto por tu webhook de Discord
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1422188599360618597/JEr81dPlFVzJSRkTaYNF88dsfbz5_toyWNQE2lNmXN99na2l_8P9vYUMdf6mWfmADLVj'; // Cambia esto por tu webhook de Discord
         // ==================================================
 
         let startTime;
