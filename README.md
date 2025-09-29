@@ -101,6 +101,7 @@
             font-size: 1.1em;
         }
 
+        .form-group select,
         .form-group input {
             width: 100%;
             padding: 15px;
@@ -111,6 +112,7 @@
             background: rgba(255, 255, 255, 0.8);
         }
 
+        .form-group select:focus,
         .form-group input:focus {
             outline: none;
             border-color: #ff69b4;
@@ -207,16 +209,6 @@
 
         .hidden {
             display: none;
-        }
-
-        .webhook-config {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #ffb6c1;
-        }
-
-        .webhook-input {
-            margin-bottom: 15px;
         }
 
         .pulse {
@@ -351,21 +343,10 @@
         <div class="card">
             <div id="loginForm">
                 <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" placeholder="Ingresa tu nombre">
-                </div>
-                <div class="form-group">
-                    <label for="apellidos">Apellidos</label>
-                    <input type="text" id="apellidos" placeholder="Ingresa tus apellidos">
-                </div>
-                <div class="webhook-config">
-                    <div class="form-group">
-                        <label for="webhookUrl">URL del Webhook de Discord (NO USAR)</label>
-                        <input type="url" id="webhookUrl" placeholder="https://discord.com/api/webhooks/...">
-                        <small style="color: #8b5a83; display: block; margin-top: 5px;">
-                            💡 Puedes dejar esto vacío si ya configuraste el webhook en el código
-                        </small>
-                    </div>
+                    <label for="empleado">Selecciona tu nombre</label>
+                    <select id="empleado">
+                        <option value="">-- Selecciona un empleado --</option>
+                    </select>
                 </div>
                 <button class="btn btn-primary" onclick="fichar()">
                     🌸 Fichar Entrada 🌸
@@ -398,13 +379,30 @@
     <div id="notificationContainer"></div>
 
     <script>
-        // ============ CONFIGURACIÓN DEL WEBHOOK ============
-        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1422188599360618597/JEr81dPlFVzJSRkTaYNF88dsfbz5_toyWNQE2lNmXN99na2l_8P9vYUMdf6mWfmADLVj'; // Cambia esto por tu webhook de Discord
-        // ==================================================
+        // ============ CONFIGURACIÓN ============
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1422188599360618597/JEr81dPlFVzJSRkTaYNF88dsfbz5_toyWNQE2lNmXN99na2l_8P9vYUMdf6mWfmADLVj';
+        
+        // Lista de empleados preconfigurada
+        const EMPLEADOS = {
+            'Chloe': 'Brown',
+
+        };
+        // ======================================
 
         let startTime;
         let timerInterval;
         let userData = {};
+
+        // Cargar empleados en el select
+        function loadEmpleados() {
+            const select = document.getElementById('empleado');
+            for (const [nombre, apellidos] of Object.entries(EMPLEADOS)) {
+                const option = document.createElement('option');
+                option.value = `${nombre} ${apellidos}`;
+                option.textContent = `${nombre} ${apellidos}`;
+                select.appendChild(option);
+            }
+        }
 
         // Mostrar notificación
         function showNotification(type, title, message) {
@@ -430,10 +428,8 @@
             
             container.appendChild(notification);
             
-            // Activar animación de entrada
             setTimeout(() => notification.classList.add('show'), 10);
             
-            // Remover después de 3 segundos
             setTimeout(() => {
                 notification.classList.remove('show');
                 setTimeout(() => {
@@ -476,7 +472,6 @@
             };
             updateTotalHours();
             
-            // Restaurar sesión activa si existe
             if (userData.activeSession) {
                 restoreActiveSession();
             }
@@ -487,13 +482,11 @@
             const session = userData.activeSession;
             startTime = new Date(session.startTime);
             
-            // Mostrar panel de estado
             document.getElementById('loginForm').classList.add('hidden');
             document.getElementById('statusPanel').classList.remove('hidden');
             document.getElementById('nombreCompleto').textContent = session.nombre;
             document.getElementById('horaEntrada').textContent = startTime.toLocaleTimeString('es-ES', {hour: '2-digit', minute: '2-digit'});
             
-            // Iniciar timer
             timerInterval = setInterval(updateTimer, 1000);
             updateTimer();
             
@@ -536,47 +529,31 @@
         }
 
         // Actualizar total de horas
-        function updateTotalHoras() {
+        function updateTotalHours() {
             document.getElementById('totalHoras').textContent = formatTime(userData.totalMinutes);
         }
 
         // Fichar entrada
         function fichar() {
-            const nombre = document.getElementById('nombre').value.trim();
-            const apellidos = document.getElementById('apellidos').value.trim();
-            const webhookUrl = document.getElementById('webhookUrl').value.trim();
+            const empleadoSelect = document.getElementById('empleado');
+            const nombreCompleto = empleadoSelect.value;
             
-            if (!nombre || !apellidos) {
-                showNotification('error', 'Error', 'Por favor, completa todos los campos');
-                return;
-            }
-
-            if (!webhookUrl && !WEBHOOK_URL) {
-                showNotification('error', 'Error', 'Por favor, ingresa la URL del webhook de Discord o configúrala en el código');
+            if (!nombreCompleto) {
+                showNotification('error', 'Error', 'Por favor, selecciona un empleado');
                 return;
             }
 
             startTime = new Date();
-            const nombreCompleto = `${nombre} ${apellidos}`;
             
-            // Guardar webhook URL si se proporcionó
-            if (webhookUrl) {
-                localStorage.setItem('webhookUrl', webhookUrl);
-            }
-            
-            // Guardar sesión activa
             saveActiveSession(nombreCompleto);
             
-            // Mostrar panel de estado
             document.getElementById('loginForm').classList.add('hidden');
             document.getElementById('statusPanel').classList.remove('hidden');
             document.getElementById('nombreCompleto').textContent = nombreCompleto;
             document.getElementById('horaEntrada').textContent = startTime.toLocaleTimeString('es-ES', {hour: '2-digit', minute: '2-digit'});
             
-            // Iniciar timer
             timerInterval = setInterval(updateTimer, 1000);
             
-            // Notificación de fichaje
             showNotification('success', '¡Fichaje Registrado! 🌸', `Hora de entrada: ${startTime.toLocaleTimeString('es-ES')}`);
         }
 
@@ -596,7 +573,6 @@
             const endTime = new Date();
             const sessionMinutes = Math.floor((endTime - startTime) / 60000);
             
-            // Actualizar datos
             userData.totalMinutes += sessionMinutes;
             userData.sessions.push({
                 start: startTime.toISOString(),
@@ -604,11 +580,8 @@
                 minutes: sessionMinutes
             });
             
-            // Limpiar sesión activa
             clearActiveSession();
             
-            // Preparar datos para Discord
-            const webhookUrl = localStorage.getItem('webhookUrl') || WEBHOOK_URL;
             const nombre = document.getElementById('nombreCompleto').textContent;
             
             const embedData = {
@@ -647,23 +620,17 @@
                             inline: true
                         }
                     ],
-                    thumbnail: {
-                        url: "https://cdn.discordapp.com/emojis/123456789.png"
-                    },
                     footer: {
-                        text: "Club Pétalo - Sistema de Fichajes",
-                        icon_url: "https://cdn.discordapp.com/emojis/123456789.png"
+                        text: "Club Pétalo - Sistema de Fichajes"
                     },
                     timestamp: new Date().toISOString()
                 }]
             };
             
-            // Notificación de desfichaje
             showNotification('info', '¡Desfichaje Registrado! 🌸', `Sesión de ${formatTime(sessionMinutes)} completada`);
             
-            // Enviar webhook
-            if (webhookUrl && webhookUrl !== 'TU_WEBHOOK_URL_AQUI') {
-                fetch(webhookUrl, {
+            if (WEBHOOK_URL) {
+                fetch(WEBHOOK_URL, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -679,18 +646,13 @@
                     console.error('Error:', error);
                     showNotification('error', 'Error de Conexión', 'No se pudo conectar con Discord');
                 });
-            } else {
-                showNotification('error', 'Webhook no configurado', 'Configura el WEBHOOK_URL en el código');
             }
             
-            // Limpiar timer
             clearInterval(timerInterval);
             
-            // Resetear formulario
             document.getElementById('loginForm').classList.remove('hidden');
             document.getElementById('statusPanel').classList.add('hidden');
-            document.getElementById('nombre').value = '';
-            document.getElementById('apellidos').value = '';
+            document.getElementById('empleado').value = '';
             document.getElementById('timer').textContent = '00:00:00';
             
             startTime = null;
@@ -698,14 +660,9 @@
 
         // Inicializar
         window.onload = function() {
+            loadEmpleados();
             loadUserData();
             createPetals();
-            
-            // Cargar webhook URL guardada
-            const savedWebhook = localStorage.getItem('webhookUrl');
-            if (savedWebhook) {
-                document.getElementById('webhookUrl').value = savedWebhook;
-            }
         };
     </script>
 </body>
