@@ -385,6 +385,7 @@
         // Lista de empleados preconfigurada
         const EMPLEADOS = {
             'Chloe': 'Brown',
+             'Selina': 'Gibson',
 
         };
         // ======================================
