@@ -370,20 +370,9 @@
         const WEBHOOK_URL = 'https://discord.com/api/webhooks/1422188599360618597/JEr81dPlFVzJSRkTaYNF88dsfbz5_toyWNQE2lNmXN99na2l_8P9vYUMdf6mWfmADLVj';
         
         const EMPLEADOS = {
-            'Chloe': 'Brown', 
-            'Selina': 'Gibson', 
-            'Zoe': 'Ross', 
-            'Ahmed': 'alim',
-            'Alisha': 'Manrry', 
-            'khalil': 'Brown', 
-            'Alan': 'Riley', 
-            'Malik': 'Keller',
-            'Isabella': 'Vera', 
-            'Hinako': 'Mizuki',
-            'Hinako': 'Mizuki2',
-            'Hinako': 'Mizuki3',
-            'Hinako': 'Mizuki4',
-            'Hinako': 'Mizuki5'
+            'Chloe': 'Brown', 'Chloe': 'Brown', 'Selina': 'Gibson', 'Zoe': 'Ross', 'Ahmed': 'alim',
+            'Alisha': 'Manrry', 'khalil': 'Brown', 'Alan': 'Riley', 'Malik': 'Keller',
+            'Isabella': 'Vera', 'Hinako': 'Mizuki'
         };
 
         let startTime, timerInterval, userData = {}, selectedEmployee = null;
