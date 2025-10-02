@@ -391,6 +391,9 @@
                'Alisha': 'Manrry',
                 'khalil': 'Brown',
             'Alan': 'Riley',
+             'Malik': 'Keller',
+              'Isabella': 'Vera',
+               'Hinako': 'Mizuki',
 
         };
         // ======================================
