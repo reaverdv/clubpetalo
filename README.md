@@ -383,7 +383,7 @@
             'Hinako': 'Mizuki2',
             'Hinako': 'Mizuki3',
             'Hinako': 'Mizuki4',
-            'Hinako': 'Mizuki5',
+            'Hinako': 'Mizuki5'
         };
 
         let startTime, timerInterval, userData = {}, selectedEmployee = null;
