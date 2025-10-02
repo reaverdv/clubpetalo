@@ -390,6 +390,7 @@
               'Ahmed': 'alim',
                'Alisha': 'Manrry',
                 'khalil': 'Brown',
+            'Alan': 'Riley',
 
         };
         // ======================================
