@@ -384,6 +384,7 @@
             'Alan': 'Riley',
             'Malik': 'Keller',
             'Isabella': 'Vera',
+            'Isabella': 'Vera',
             'Hinako': 'Mizuki'
         };
 
