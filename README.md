@@ -385,9 +385,9 @@
             'Malik': 'Keller',
             'Isabella': 'Vera',
             'Hinako': 'Mizuki',
-               'Ian': 'Smith',
-                  'Alejandro': 'Fernandez',
-                     'Moira ': 'Vera'
+            'Ian': 'Smith',
+            'Alejandro': 'Fernandez',
+            'Moira ': 'Vera'
         };
 
         let startTime, timerInterval, userData = {}, selectedEmployee = null;
