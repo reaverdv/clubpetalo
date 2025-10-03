@@ -116,6 +116,11 @@
             width: 6px;
         }
 
+        .employees-card::-webkit-scrollbar-track {
+            background: rgba(255, 105, 180, 0.1);
+            border-radius: 10px;
+        }
+
         .employees-card::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, #ff69b4, #d946ef);
             border-radius: 10px;
@@ -370,15 +375,23 @@
         const WEBHOOK_URL = 'https://discord.com/api/webhooks/1422188599360618597/JEr81dPlFVzJSRkTaYNF88dsfbz5_toyWNQE2lNmXN99na2l_8P9vYUMdf6mWfmADLVj';
         
         const EMPLEADOS = {
-            'Chloe': 'Brown', 'Chloe': 'Brown', 'Selina': 'Gibson', 'Zoe': 'Ross', 'Ahmed': 'alim',
-            'Alisha': 'Manrry', 'khalil': 'Brown', 'Alan': 'Riley', 'Malik': 'Keller',
-            'Isabella': 'Vera', 'Hinako': 'Mizuki'
+            'Chloe': 'Brown',
+            'Selina': 'Gibson',
+            'Zoe': 'Ross',
+            'Ahmed': 'Alim',
+            'Alisha': 'Manrry',
+            'Khalil': 'Brown',
+            'Alan': 'Riley',
+            'Malik': 'Keller',
+            'Isabella': 'Vera',
+            'Hinako': 'Mizuki'
         };
 
         let startTime, timerInterval, userData = {}, selectedEmployee = null;
 
         function loadEmpleados() {
             const list = document.getElementById('employeesList');
+            list.innerHTML = '';
             for (const [nombre, apellidos] of Object.entries(EMPLEADOS)) {
                 const item = document.createElement('div');
                 item.className = 'employee-item';
