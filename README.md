@@ -387,7 +387,8 @@
             'Hinako': 'Mizuki',
             'Ian': 'Smith',
             'Alejandro': 'Fernandez',
-            'Moira ': 'Vera'
+            'Moira ': 'Vera',
+             'Desmond  ': 'Bryant'
         };
 
         let startTime, timerInterval, userData = {}, selectedEmployee = null;
