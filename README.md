@@ -388,7 +388,8 @@
             'Ian': 'Smith',
             'Alejandro': 'Fernandez',
             'Moira ': 'Vera',
-             'Desmond  ': 'Bryant'
+             'Desmond ': 'Bryant',
+              'Athenea ': 'Clark'
         };
 
         let startTime, timerInterval, userData = {}, selectedEmployee = null;
