@@ -958,7 +958,6 @@
         const EMPLOYEES = {
             'Chloe': 'Brown', 
             'Zoe': 'Ross', 
-            'Ahmed': 'Alim',
             'Alisha': 'Manrry', 
             'Alan': 'Riley', 
             'Malik': 'Keller',
