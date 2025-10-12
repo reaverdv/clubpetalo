@@ -970,7 +970,8 @@
              'Alejandro': 'Fernandez',
             'Moira': 'Vera', 
             'Desmond': 'Bryant', 
-            'Athenea': 'Clark'
+            'Athenea': 'Clark',
+            'Woody': 'Brook',
         };
 
         let startTime, timerInterval, sessionData = {}, selectedEmployee = null, recentEmployees = [];
