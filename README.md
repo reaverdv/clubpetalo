@@ -961,16 +961,13 @@
             'Zoe': 'Ross', 
             'Ahmed': 'Alim',
             'Alisha': 'Manrry', 
-            'Khalil': 'Brown', 
             'Alan': 'Riley', 
             'Malik': 'Keller',
             'Isabella': 'Vera',
              'Hinako': 'Mizuki', 
              'Ian': 'Smith', 
              'Alejandro': 'Fernandez',
-            'Moira': 'Vera', 
-            'Desmond': 'Bryant', 
-            'Athenea': 'Clark',
+            'Moira': 'Vera',  
             'Woody': 'Brook',
         };
 
