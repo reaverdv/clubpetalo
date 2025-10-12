@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -126,7 +127,7 @@
         .header-stat-value {
             font-size: 1.8em;
             font-weight: 700;
-             background: linear-gradient(135deg, #f7f4f5 0%, #14ff14 100%);
+            background: linear-gradient(135deg, #f7f4f5 0%, #14ff14 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -149,7 +150,7 @@
             backdrop-filter: blur(20px);
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 20px;
-          box-shadow: 0 0 10px rgba(16, 16, 16, 0.853);
+            box-shadow: 0 0 10px rgba(16, 16, 16, 0.853);
             overflow: hidden;
             animation: fadeIn 0.8s ease-out;
         }
@@ -192,6 +193,7 @@
         .tab.active {
             background: rgba(30, 30, 30, 0.144);
             border: 1px solid rgba(251, 250, 251, 0.3);
+            color: #fff;
         }
 
         .tab-content {
@@ -330,13 +332,47 @@
             font-weight: 600;
             color: #fff;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            margin-bottom: 3px;
+            margin-bottom: 5px;
         }
 
-        .employee-status {
-            font-size: 0.85em;
-            color: #f7f4f7;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        .employee-rank {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 8px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .rank-jefa {
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
+            box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+        }
+
+        .rank-encargado, .rank-encargada {
+            background: linear-gradient(135deg, #9333ea 0%, #c084fc 100%);
+            color: white;
+            box-shadow: 0 0 10px rgba(147, 51, 234, 0.5);
+        }
+
+        .rank-experimentado, .rank-experimentada {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            color: white;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+
+        .rank-trabajador-fijo {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: white;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .rank-practicas {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: white;
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
         }
 
         .status-panel {
@@ -519,7 +555,6 @@
             background: rgba(255, 105, 180, 0.2);
         }
 
-        /* MODAL DE CONFIRMACIÓN */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -823,7 +858,6 @@
 <body>
     <div class="particles" id="particles"></div>
     
-    <!-- MODAL DE CONFIRMACIÓN -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <div class="modal-header">
@@ -858,7 +892,7 @@
                 </div>
                 <div class="header-stats">
                     <div class="header-stat">
-                        <div class="header-stat-value" id="totalEmployees">15</div>
+                        <div class="header-stat-value" id="totalEmployees">10</div>
                         <div class="header-stat-label">Empleados</div>
                     </div>
                     <div class="header-stat">
@@ -895,7 +929,7 @@
                     <p>Selecciona tu nombre para comenzar tu jornada</p>
                     
                     <div class="discord-info">
-                        <div class="discord-info-title">🔗 Normas</div>
+                        <div class="discord-info-title">🔗 Instrucciones</div>
                         <div class="discord-info-text">
                             Leer esta norma para que puedas fichar correctamente.<br><br>
                             <strong>Pasos necesarios:</strong><br>
@@ -942,30 +976,25 @@
     <script>
         const WEBHOOK_URL = 'https://discord.com/api/webhooks/1422188599360618597/JEr81dPlFVzJSRkTaYNF88dsfbz5_toyWNQE2lNmXN99na2l_8P9vYUMdf6mWfmADLVj';
         
-        // CONFIGURACIÓN PARA BOT DE DISCORD (Ver instrucciones al final)
         const DISCORD_BOT_CONFIG = {
-            enabled: false, // Cambiar a true cuando tengas el bot configurado
-            botToken: '', // Token del bot
-            guildId: '', // ID del servidor
-            roleId: '', // ID del rol "En Servicio"
-            
-            // Mapeo de empleados a Discord IDs
-            employeeDiscordIds: {
-              //  'Chloe Brown': '961335334669541437',
-            }
+            enabled: false,
+            botToken: '',
+            guildId: '',
+            roleId: '',
+            employeeDiscordIds: {}
         };
         
         const EMPLOYEES = {
-            'Chloe': 'Brown', 
-            'Zoe': 'Ross', 
-            'Alisha': 'Manrry', 
-            'Alan': 'Riley', 
-            'Malik': 'Keller',
-            'Isabella': 'Vera',
-             'Ian': 'Smith', 
-             'Alejandro': 'Fernandez',
-            'Moira': 'Vera',  
-            'Woody': 'Brook',
+            'Chloe': { surname: 'Brown', rank: 'Jefa' },
+            'Alisha': { surname: 'Manrry', rank: 'Encargada' },
+            'Zoe': { surname: 'Ross', rank: 'Experimentada' },
+            'Alan': { surname: 'Riley', rank: 'Prácticas' },
+            'Malik': { surname: 'Keller', rank: 'Prácticas' },
+            'Isabella': { surname: 'Vera', rank: 'Prácticas' },
+            'Ian': { surname: 'Smith', rank: 'Prácticas' },
+            'Alejandro': { surname: 'Fernandez', rank: 'Prácticas' },
+            'Moira': { surname: 'Vera', rank: 'Prácticas' },
+            'Woody': { surname: 'Brook', rank: 'Prácticas' },
         };
 
         let startTime, timerInterval, sessionData = {}, selectedEmployee = null, recentEmployees = [];
@@ -991,16 +1020,16 @@
             const azPanel = document.getElementById('azPanel');
             
             allPanel.innerHTML = '';
-            Object.entries(EMPLOYEES).forEach(([name, surname]) => {
-                allPanel.appendChild(createEmployeeItem(name, surname));
+            Object.entries(EMPLOYEES).forEach(([name, data]) => {
+                allPanel.appendChild(createEmployeeItem(name, data.surname, data.rank));
             });
 
             const sorted = Object.entries(EMPLOYEES).sort((a, b) => a[0].localeCompare(b[0]));
             const grouped = {};
-            sorted.forEach(([name, surname]) => {
+            sorted.forEach(([name, data]) => {
                 const letter = name[0].toUpperCase();
                 if (!grouped[letter]) grouped[letter] = [];
-                grouped[letter].push([name, surname]);
+                grouped[letter].push([name, data.surname, data.rank]);
             });
 
             azPanel.innerHTML = '';
@@ -1008,8 +1037,8 @@
                 const group = document.createElement('div');
                 group.className = 'letter-group';
                 group.innerHTML = `<div class="letter-header">${letter}</div>`;
-                employees.forEach(([name, surname]) => {
-                    group.appendChild(createEmployeeItem(name, surname));
+                employees.forEach(([name, surname, rank]) => {
+                    group.appendChild(createEmployeeItem(name, surname, rank));
                 });
                 azPanel.appendChild(group);
             });
@@ -1017,17 +1046,21 @@
             updateRecentPanel();
         }
 
-        function createEmployeeItem(name, surname) {
+        function createEmployeeItem(name, surname, rank) {
             const item = document.createElement('div');
             item.className = 'employee-item';
             const fullName = `${name} ${surname}`;
             const initials = name[0] + (surname[0] || '');
             
+            const rankClass = rank.toLowerCase()
+                .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                .replace(/\s+/g, '-');
+            
             item.innerHTML = `
                 <div class="employee-avatar">${initials}</div>
                 <div class="employee-info">
                     <div class="employee-name">${fullName}</div>
-                    <div class="employee-status">Disponible 😺</div>
+                    <div class="employee-rank rank-${rankClass}">${rank}</div>
                 </div>
             `;
             
@@ -1047,7 +1080,9 @@
             recentEmployees.forEach(name => {
                 const [firstName, ...rest] = name.split(' ');
                 const surname = rest.join(' ');
-                recentPanel.appendChild(createEmployeeItem(firstName, surname));
+                const employeeData = EMPLOYEES[firstName];
+                const rank = employeeData ? employeeData.rank : 'Trabajador Fijo';
+                recentPanel.appendChild(createEmployeeItem(firstName, surname, rank));
             });
         }
 
@@ -1163,13 +1198,11 @@
 
         async function assignDiscordRole(employeeName, action) {
             if (!DISCORD_BOT_CONFIG.enabled) {
-                console.log('Discord bot no está habilitado');
                 return false;
             }
 
             const discordId = DISCORD_BOT_CONFIG.employeeDiscordIds[employeeName];
-            if (!discordId || discordId === 'DISCORD_USER_ID') {
-                showNotification('warning', '⚠️ Discord', `No se encontró Discord ID para ${employeeName}`);
+            if (!discordId) {
                 return false;
             }
 
@@ -1187,16 +1220,10 @@
                 });
 
                 if (response.ok || response.status === 204) {
-                    showNotification('success', '✓ Discord', 
-                        action === 'add' ? 'Rol "En Servicio" asignado' : 'Rol "En Servicio" removido');
                     return true;
-                } else {
-                    showNotification('error', '✗ Discord', 'Error al modificar rol en Discord');
-                    return false;
                 }
+                return false;
             } catch (error) {
-                console.error('Error Discord API:', error);
-                showNotification('error', '✗ Discord', 'No se pudo conectar con Discord');
                 return false;
             }
         }
@@ -1229,7 +1256,6 @@
             showNotification('success', '✓ Fichaje Registrado', 
                 `${selectedEmployee} ha iniciado su jornada a las ${startTime.toLocaleTimeString('es-ES')}`);
             
-            // Intentar asignar rol de Discord
             await assignDiscordRole(selectedEmployee, 'add');
         }
 
@@ -1306,7 +1332,6 @@
             
             showNotification('info', '⏳ Procesando...', 'Registrando tu fichaje de salida.');
             
-            // Enviar a Discord Webhook
             if (WEBHOOK_URL) {
                 fetch(WEBHOOK_URL, {
                     method: 'POST',
@@ -1328,7 +1353,6 @@
                 });
             }
             
-            // Intentar remover rol de Discord
             await assignDiscordRole(sessionData.employee, 'remove');
             
             clearInterval(timerInterval);
@@ -1347,7 +1371,6 @@
             });
         }
 
-        // Cerrar modal al hacer clic fuera
         document.getElementById('modalOverlay').addEventListener('click', function(e) {
             if (e.target === this) {
                 cancelClockIn();
