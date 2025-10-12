@@ -957,14 +957,12 @@
         
         const EMPLOYEES = {
             'Chloe': 'Brown', 
-            'Selina': 'Gibson', 
             'Zoe': 'Ross', 
             'Ahmed': 'Alim',
             'Alisha': 'Manrry', 
             'Alan': 'Riley', 
             'Malik': 'Keller',
             'Isabella': 'Vera',
-             'Hinako': 'Mizuki', 
              'Ian': 'Smith', 
              'Alejandro': 'Fernandez',
             'Moira': 'Vera',  
